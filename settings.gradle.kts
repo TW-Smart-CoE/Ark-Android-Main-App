@@ -13,6 +13,7 @@ pluginManagement {
         google()
         mavenCentral()
         maven("https://jitpack.io")
+        mavenLocal()
     }
 }
 dependencyResolutionManagement {
@@ -21,6 +22,13 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven("https://jitpack.io")
+        mavenLocal()
+    }
+
+    versionCatalogs {
+        create("libs") {
+            from("com.thoughtworks.ark:VersionCatalog:1.0-SNAPSHOT")
+        }
     }
 }
 

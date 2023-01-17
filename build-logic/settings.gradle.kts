@@ -4,10 +4,12 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        mavenLocal()
     }
+
     versionCatalogs {
         create("libs") {
-            from(files("../gradle/libs.versions.toml"))
+            from("com.thoughtworks.ark:VersionCatalog:1.0-SNAPSHOT")
         }
     }
 }
