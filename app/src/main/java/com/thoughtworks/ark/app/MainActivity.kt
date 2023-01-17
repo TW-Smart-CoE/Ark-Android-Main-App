@@ -29,18 +29,21 @@ class MainActivity : AppCompatActivity() {
                     Router.scheme(HomeSchemes.HOME)
                         .container(R.id.container)
                         .group()
+                        .tag("home")
                         .route(this)
                 }
                 R.id.navigation_dashboard -> {
                     Router.scheme(DashboardSchemes.DASHBOARD)
                         .container(R.id.container)
                         .group()
+                        .tag("dashboard")
                         .route(this)
                 }
                 R.id.navigation_notifications -> {
                     Router.scheme(NotificationsSchemes.NOTIFICATIONS)
                         .container(R.id.container)
                         .group()
+                        .tag("notifications")
                         .route(this)
                 }
             }

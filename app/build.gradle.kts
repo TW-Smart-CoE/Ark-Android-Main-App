@@ -30,9 +30,9 @@ androidApplication {
 }
 
 dependencies {
-    implementation(project(":feature-home"))
-    implementation(project(":feature-dashboard"))
-    implementation(project(":feature-notifications"))
+    implementation("com.thoughtworks.ark:feature-home:1.0-SNAPSHOT")
+    implementation("com.thoughtworks.ark:feature-dashboard:1.0-SNAPSHOT")
+    implementation("com.thoughtworks.ark:feature-notifications:1.0-SNAPSHOT")
 
     implementation(libs.bundles.kotlin)
     implementation(libs.bundles.android)
