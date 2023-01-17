@@ -44,6 +44,9 @@ espresso-core = "3.5.1"
 # router
 router = "42b1bcd3de"
 
+# ark
+ark = "feature~componentization-SNAPSHOT"
+
 [libraries]
 # plugin
 android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
@@ -119,6 +122,9 @@ espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref =
 # router
 router = { module = "com.github.TW-Smart-CoE.ARK-Android-Router:router", version.ref = "router" }
 router-compiler = { module = "com.github.TW-Smart-CoE.ARK-Android-Router:compiler", version.ref = "router" }
+
+# ark
+ark-ui = { module = "com.github.TW-Smart-CoE:ARK-Android", version.ref = "ark" }
 
 [bundles]
 compose = [

@@ -30,6 +30,10 @@ androidApplication {
 }
 
 dependencies {
+    implementation(project(":feature-home"))
+    implementation(project(":feature-dashboard"))
+    implementation(project(":feature-notifications"))
+
     implementation(libs.bundles.kotlin)
     implementation(libs.bundles.android)
     implementation(libs.bundles.compose)
