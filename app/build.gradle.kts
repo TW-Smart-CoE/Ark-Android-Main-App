@@ -1,4 +1,4 @@
-@file:Suppress("DSL_SCOPE_VIOLATION")
+@file:Suppress("DSL_SCOPE_VIOLATION", "UnstableApiUsage")
 
 import com.thoughtworks.ark.androidApplication
 import com.thoughtworks.ark.enableCompose

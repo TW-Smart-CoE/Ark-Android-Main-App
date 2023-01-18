@@ -1,3 +1,5 @@
+@file:Suppress("DSL_SCOPE_VIOLATION", "UnstableApiUsage")
+
 pluginManagement {
     resolutionStrategy {
         eachPlugin {
@@ -25,9 +27,14 @@ dependencyResolutionManagement {
         mavenLocal()
     }
 
+    val properties = java.util.Properties().apply {
+        load(File(rootDir, "buildconfig.properties").reader())
+    }
+    val catalogVersion = properties["PLUGIN_CATALOG_VERSION"]
+
     versionCatalogs {
         create("libs") {
-            from("com.thoughtworks.ark:VersionCatalog:1.0-SNAPSHOT")
+            from("com.thoughtworks.ark:VersionCatalog:${catalogVersion}")
         }
     }
 }
