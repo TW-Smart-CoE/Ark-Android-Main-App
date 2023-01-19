@@ -9,20 +9,34 @@ import org.gradle.kotlin.dsl.create
 
 class BuildLogicPlugin : Plugin<Project> {
     override fun apply(project: Project) {
+        project.subprojects {
+            configMaven()
+        }
+    }
+
+    private fun Project.readConfig(name: String): String {
+        return project.properties[name] as String? ?: System.getenv(name) ?: ""
+    }
+
+    private fun Project.configMaven() {
         val mavenProperties = project.loadProperties("buildconfig.properties")
         val publishGroupId = mavenProperties["PUBLISH_GROUP_ID"]?.toString() ?: ""
         val publishVersion = mavenProperties["PUBLISH_VERSION"]?.toString() ?: ""
 
-        project.subprojects {
-            configMaven(publishGroupId, publishVersion)
-        }
-    }
-
-    private fun Project.configMaven(publishGroupId: String, publishVersion: String) {
         afterEvaluate {
             plugins.withId("com.android.library") {
                 apply(plugin = "maven-publish")
                 configure<PublishingExtension> {
+                    repositories {
+                        maven {
+                            url = uri(readConfig("MAVEN_REPO"))
+                            isAllowInsecureProtocol = true
+                            credentials {
+                                username = readConfig("MAVEN_USER")
+                                password = readConfig(("MAVEN_PWD"))
+                            }
+                        }
+                    }
                     publications {
                         create<MavenPublication>("maven") {
                             afterEvaluate {

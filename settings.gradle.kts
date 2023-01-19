@@ -1,5 +1,17 @@
 @file:Suppress("DSL_SCOPE_VIOLATION", "UnstableApiUsage")
 
+import java.util.Properties
+
+fun readConfig(name: String): String {
+    return settings.extensions.extraProperties.properties[name] as String?
+        ?: System.getenv(name) ?: ""
+}
+
+val buildConfigProperties: Properties
+    get() = Properties().apply {
+        load(File(rootDir, "buildconfig.properties").reader())
+    }
+
 pluginManagement {
     resolutionStrategy {
         eachPlugin {
@@ -18,6 +30,7 @@ pluginManagement {
         mavenLocal()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -25,34 +38,24 @@ dependencyResolutionManagement {
         mavenCentral()
         maven("https://jitpack.io")
         mavenLocal()
+        maven {
+            url = uri(readConfig("MAVEN_REPO"))
+            isAllowInsecureProtocol = true
+            credentials {
+                username = readConfig("MAVEN_USER")
+                password = readConfig(("MAVEN_PWD"))
+            }
+        }
     }
 
-    val properties = java.util.Properties().apply {
-        load(File(rootDir, "buildconfig.properties").reader())
-    }
-    val catalogVersion = properties["PLUGIN_CATALOG_VERSION"]
+    val catalogVersion = buildConfigProperties["PLUGIN_CATALOG_VERSION"]
 
     versionCatalogs {
         create("libs") {
-            from("com.thoughtworks.ark:VersionCatalog:${catalogVersion}")
+            from("com.thoughtworks.ark:versioncatalog:${catalogVersion}")
         }
     }
 }
 
 rootProject.name = "ARK-Android-MainApp"
 include(":app")
-
-include(":feature-home")
-project(":feature-home").projectDir = file("../Feature-Home/feature-home")
-include(":feature-home-api")
-project(":feature-home-api").projectDir = file("../Feature-Home/feature-home-api")
-
-include(":feature-dashboard")
-project(":feature-dashboard").projectDir = file("../Feature-Dashboard/feature-dashboard")
-include(":feature-dashboard-api")
-project(":feature-dashboard-api").projectDir = file("../Feature-Dashboard/feature-dashboard-api")
-
-include(":feature-notifications")
-project(":feature-notifications").projectDir = file("../Feature-Notifications/feature-notifications")
-include(":feature-notifications-api")
-project(":feature-notifications-api").projectDir = file("../Feature-Notifications/feature-notifications-api")
