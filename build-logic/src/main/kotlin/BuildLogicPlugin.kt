@@ -38,7 +38,15 @@ class BuildLogicPlugin : Plugin<Project> {
                         }
                     }
                     publications {
-                        create<MavenPublication>("maven") {
+                        create<MavenPublication>("snapshot") {
+                            afterEvaluate {
+                                from(components.getByName("prodRelease"))
+                                groupId = publishGroupId
+                                version = "$publishVersion-SNAPSHOT"
+                            }
+                        }
+
+                        create<MavenPublication>("release") {
                             afterEvaluate {
                                 from(components.getByName("prodRelease"))
                                 groupId = publishGroupId

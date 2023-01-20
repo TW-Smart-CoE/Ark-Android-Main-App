@@ -66,6 +66,16 @@ platform :android do
     gradle(task: "devDebugCoverage")
   end
 
+  desc "Publish snapshot"
+  lane :publish_snapshot do
+    gradle(task: "publishSnapshotPublicationToMavenRepository")
+  end
+
+  desc "Publish release"
+  lane :publish_release do
+    gradle(task: "publishReleasePublicationToMavenRepository")
+  end
+
   desc "Deploy on Fir.im"
   private_lane :release_to_test_channel do |options|
     apks = options[:apks]
