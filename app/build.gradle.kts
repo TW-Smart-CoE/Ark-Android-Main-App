@@ -1,6 +1,7 @@
 @file:Suppress("DSL_SCOPE_VIOLATION", "UnstableApiUsage")
 
 import com.thoughtworks.ark.androidApplication
+import com.thoughtworks.ark.autoImplementation
 import com.thoughtworks.ark.enableCompose
 
 plugins {
@@ -30,9 +31,9 @@ androidApplication {
 }
 
 dependencies {
-    implementation("com.thoughtworks.ark:feature-home:1.0-SNAPSHOT")
-    implementation("com.thoughtworks.ark:feature-dashboard:1.0-SNAPSHOT")
-    implementation("com.thoughtworks.ark:feature-notifications:1.0-SNAPSHOT")
+    autoImplementation("feature-home", "1.0.0")
+    autoImplementation("feature-dashboard", "1.0.0")
+    autoImplementation("feature-notifications", "1.0.0")
 
     implementation(libs.bundles.kotlin)
     implementation(libs.bundles.android)

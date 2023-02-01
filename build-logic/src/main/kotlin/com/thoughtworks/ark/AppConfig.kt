@@ -1,6 +1,6 @@
 package com.thoughtworks.ark
 
-object Config {
+object AppConfig {
     const val APP_SCHEME_KEY = "APP_SCHEME"
     const val APP_SCHEME_VALUE = "ark"
 

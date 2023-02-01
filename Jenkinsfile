@@ -8,7 +8,7 @@ pipeline {
     }
     parameters {
         string(name: 'APP_BUILD_FOLDER', defaultValue: 'app/build', description: 'Application build output folder')
-        choice(name: 'APP_BUILD_ENV', choices: ['dev', 'uat', 'staging'], description: 'Pipeline build env: dev/uat/staging, default is dev')
+        choice(name: 'APP_BUILD_ENV', choices: ['dev', 'uat', 'staging', 'prod'], description: 'Pipeline build env: dev/uat/staging/prod, default is dev')
     }
     options {
         // Stop the build early in case of compile or test failures
@@ -39,12 +39,7 @@ pipeline {
         stage('Build Uat') {
             when { expression { params.APP_BUILD_ENV == 'uat'} }
             steps {
-                // Copy release keystore to workspace
-                withCredentials([file(credentialsId: 'keystore-release', variable: 'keystore')]) {
-                    sh 'rm -rf config/keystore'
-                    sh 'mkdir -p config/keystore'
-                    sh 'cp $keystore config/keystore/'
-                }
+                initKeyStore()
                 script {
                     sh 'bundle exec fastlane build_uat'
                 }
@@ -53,14 +48,18 @@ pipeline {
         stage('Build Staging') {
             when { expression { params.APP_BUILD_ENV == 'staging'} }
             steps {
-                // Copy release keystore to workspace
-                withCredentials([file(credentialsId: 'keystore-release', variable: 'keystore')]) {
-                    sh 'rm -rf config/keystore'
-                    sh 'mkdir -p config/keystore'
-                    sh 'cp $keystore config/keystore/'
-                }
+                initKeyStore()
                 script {
                     sh 'bundle exec fastlane build_staging'
+                }
+            }
+        }
+        stage('Build Prod') {
+            when { expression { params.APP_BUILD_ENV == 'prod'} }
+            steps {
+                initKeyStore()
+                script {
+                    sh 'bundle exec fastlane build_prod'
                 }
             }
         }
@@ -95,12 +94,7 @@ pipeline {
             when { branch pattern: "release(-v.+)?", comparator: "REGEXP"}
             steps {
                 script {
-                    // Copy release keystore to workspace
-                    withCredentials([file(credentialsId: 'keystore-release', variable: 'keystore')]) {
-                        sh 'rm -rf config/keystore'
-                        sh 'mkdir -p config/keystore'
-                        sh 'cp $keystore config/keystore/'
-                    }
+                    initKeyStore()
                     sh 'bundle exec fastlane build_prod'
                 }
             }
@@ -123,3 +117,11 @@ pipeline {
     }
 }
 
+def initKeyStore() {
+    // Copy release keystore to workspace
+    withCredentials([file(credentialsId: 'keystore-release', variable: 'keystore')]) {
+        sh 'rm -rf config/keystore'
+        sh 'mkdir -p config/keystore'
+        sh 'cp $keystore config/keystore/'
+    }
+}

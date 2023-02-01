@@ -1,26 +1,11 @@
 @file:Suppress("DSL_SCOPE_VIOLATION", "UnstableApiUsage")
 
-import java.util.Properties
-
 fun readConfig(name: String): String {
     return settings.extensions.extraProperties.properties[name] as String?
         ?: System.getenv(name) ?: ""
 }
 
-val buildConfigProperties: Properties
-    get() = Properties().apply {
-        load(File(rootDir, "buildconfig.properties").reader())
-    }
-
 pluginManagement {
-    resolutionStrategy {
-        eachPlugin {
-            if (requested.id.toString() == "com.thoughtworks.ark.router") {
-                useModule("com.github.TW-Smart-CoE.ARK-Android-Router:com.thoughtworks.ark.router:${requested.version}")
-            }
-        }
-    }
-
     includeBuild("build-logic")
     repositories {
         gradlePluginPortal()
@@ -48,11 +33,9 @@ dependencyResolutionManagement {
         }
     }
 
-    val catalogVersion = buildConfigProperties["PLUGIN_CATALOG_VERSION"]
-
     versionCatalogs {
         create("libs") {
-            from("com.thoughtworks.ark:versioncatalog:${catalogVersion}")
+            from("io.github.ssseasonnn:VersionCatalog:0.0.2")
         }
     }
 }
