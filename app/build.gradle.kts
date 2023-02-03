@@ -35,6 +35,8 @@ dependencies {
     autoImplementation("feature-dashboard", "1.0.0")
     autoImplementation("feature-notifications", "1.0.0")
 
+    autoImplementation("foundation", "1.0.0")
+
     implementation(libs.bundles.kotlin)
     implementation(libs.bundles.android)
     implementation(libs.bundles.compose)
