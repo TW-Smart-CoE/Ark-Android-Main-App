@@ -1,4 +1,4 @@
-package com.thoughtworks.ark
+package com.thoughtworks.ark.buildlogic
 
 object MavenConfig {
     // maven group config

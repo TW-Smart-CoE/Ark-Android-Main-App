@@ -1,4 +1,4 @@
-import com.thoughtworks.ark.setupMaven
+import com.thoughtworks.ark.buildlogic.setupMaven
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

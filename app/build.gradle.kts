@@ -1,8 +1,8 @@
 @file:Suppress("DSL_SCOPE_VIOLATION", "UnstableApiUsage")
 
-import com.thoughtworks.ark.androidApplication
-import com.thoughtworks.ark.autoImplementation
-import com.thoughtworks.ark.enableCompose
+import com.thoughtworks.ark.buildlogic.androidApplication
+import com.thoughtworks.ark.buildlogic.autoImplementation
+import com.thoughtworks.ark.buildlogic.enableCompose
 
 plugins {
     alias(libs.plugins.application)

@@ -1,4 +1,4 @@
-package com.thoughtworks.ark
+package com.thoughtworks.ark.buildlogic
 
 object AppConfig {
     const val APP_SCHEME_KEY = "APP_SCHEME"
