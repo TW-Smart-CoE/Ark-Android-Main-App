@@ -1,0 +1,15 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@mipmap/ic_launcher_round"
+        android:shortcutDisabledMessage="@string/develop_menu_disable_hint"
+        android:shortcutId="develop_menu"
+        android:shortcutLongLabel="@string/develop_menu_label"
+        android:shortcutShortLabel="@string/develop_menu_label">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.thoughtworks.ark.developmenu.DevelopMenuActivity"
+            android:targetPackage="com.thoughtworks.ark.app.dev" />
+        <categories android:name="android.shortcut.devmenu" />
+    </shortcut>
+</shortcuts>

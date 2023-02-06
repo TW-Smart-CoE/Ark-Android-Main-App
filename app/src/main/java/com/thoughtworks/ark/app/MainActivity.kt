@@ -4,12 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.thoughtworks.ark.app.deeplink.Schemes
 import com.thoughtworks.ark.feature.dashboard.api.DashboardSchemes
 import com.thoughtworks.ark.feature.home.api.HomeSchemes
 import com.thoughtworks.ark.feature.notifications.api.NotificationsSchemes
 import com.thoughtworks.ark.router.Router
+import com.thoughtworks.ark.router.annotation.Scheme
 import dagger.hilt.android.AndroidEntryPoint
 
+@Scheme(Schemes.MAIN)
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 

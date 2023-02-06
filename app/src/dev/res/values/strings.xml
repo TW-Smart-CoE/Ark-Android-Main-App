@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MainApp-dev</string>
+    <string name="develop_menu_label">Develop Menu</string>
+    <string name="develop_menu_disable_hint">Develop Menu has disabled!</string>
+</resources>
