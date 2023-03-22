@@ -2,13 +2,14 @@
 
 plugins {
     id("build.logic")
-    alias(libs.plugins.application) apply false
-    alias(libs.plugins.library) apply false
-    alias(libs.plugins.kotlin) apply false
-    alias(libs.plugins.kotlin.jvm) apply false
+    id(libs.plugins.application.get().pluginId) apply false
+    id(libs.plugins.library.get().pluginId) apply false
+    id(libs.plugins.kotlin.asProvider().get().pluginId) apply false
+    id(libs.plugins.kotlin.jvm.get().pluginId) apply false
+    id(libs.plugins.kotlin.parcelize.get().pluginId) apply false
+    id(libs.plugins.kapt.get().pluginId) apply false
+
     alias(libs.plugins.kotlin.serialization) apply false
-    alias(libs.plugins.kotlin.parcelize) apply false
-    alias(libs.plugins.kapt) apply false
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.detekt) apply false
     alias(libs.plugins.router) apply false

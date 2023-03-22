@@ -1,9 +1,8 @@
 @file:Suppress("DSL_SCOPE_VIOLATION", "UnstableApiUsage")
 
-fun readConfig(name: String): String {
-    return settings.extensions.extraProperties.properties[name] as String?
-        ?: System.getenv(name) ?: ""
-}
+import com.thoughtworks.ark.buildlogic.configFeature
+import com.thoughtworks.ark.buildlogic.configPrivateMaven
+import com.thoughtworks.ark.buildlogic.configVersionCatalog
 
 pluginManagement {
     fun createBuildLogicPath(): String {
@@ -67,27 +66,39 @@ dependencyResolutionManagement {
         mavenCentral()
         maven("https://jitpack.io")
         mavenLocal()
-
-        if (readConfig("MAVEN_REPO").isNotEmpty()) {
-            maven {
-                url = uri(readConfig("MAVEN_REPO"))
-                isAllowInsecureProtocol = true
-                credentials {
-                    username = readConfig("MAVEN_USER")
-                    password = readConfig(("MAVEN_PWD"))
-                }
-            }
-        } else {
-            System.err.println("Please config your private Maven repo!")
-        }
+        configPrivateMaven(this)
     }
 
-    versionCatalogs {
-        create("libs") {
-            from("io.github.ssseasonnn:VersionCatalog:0.0.3")
-        }
-    }
+    configVersionCatalog()
+}
+
+plugins {
+    id("build.setting") apply false
 }
 
 rootProject.name = "ARK-Android-MainApp"
 include(":app")
+
+configFeature(
+    "FeatureHome",
+    "https://github.com/TW-Smart-CoE/Ark-Android-Feature-Home.git",
+    "feature-home",
+    "feature-home-api",
+    true
+)
+
+configFeature(
+    "FeatureDashBoard",
+    "https://github.com/TW-Smart-CoE/Ark-Android-Feature-Dashboard.git",
+    "feature-dashboard",
+    "feature-dashboard-api",
+    false
+)
+
+configFeature(
+    "FeatureNotifications",
+    "https://github.com/TW-Smart-CoE/Ark-Android-Feature-Notifications.git",
+    "feature-notifications",
+    "feature-notifications-api",
+    false
+)

@@ -5,11 +5,12 @@ import com.thoughtworks.ark.buildlogic.autoImplementation
 import com.thoughtworks.ark.buildlogic.enableCompose
 
 plugins {
-    alias(libs.plugins.application)
-    alias(libs.plugins.kotlin)
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.kapt)
+    id(libs.plugins.application.get().pluginId)
+    id(libs.plugins.kotlin.asProvider().get().pluginId)
+    id(libs.plugins.kapt.get().pluginId)
+
     alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.detekt)
     alias(libs.plugins.router)
 }
@@ -28,6 +29,14 @@ androidApplication {
     }
 
     enableCompose()
+
+    kapt {
+        correctErrorTypes = true
+    }
+
+    hilt {
+        enableAggregatingTask = false
+    }
 }
 
 dependencies {
